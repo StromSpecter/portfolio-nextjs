@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import type { StaticImageData } from "next/image";
 import type { IconType } from "react-icons";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiArrowUpRight, FiBookOpen, FiLayers } from "react-icons/fi";
 import beaCukaiLogo from "./assets/svgs/Logo_Bea_dan_Cukai.svg";
 import mtmLogo from "./assets/images/Logo MTM.png";
 import nexuraLogo from "./assets/svgs/Nexura-05.svg";
@@ -48,6 +48,13 @@ type StackItem = {
 type StackCategory = {
   title: string;
   items: StackItem[];
+};
+
+type Education = {
+  category: "Formal" | "Informal";
+  title: string;
+  institution: string;
+  period: string;
 };
 
 type Experience = {
@@ -136,6 +143,33 @@ const techStackCategories: StackCategory[] = [
       { name: "Ubuntu", icon: SiUbuntu },
       { name: "Rocky Linux", icon: SiRockylinux },
     ],
+  },
+];
+
+const educations: Education[] = [
+  {
+    category: "Formal",
+    title: "Bachelor of Informatics",
+    institution: "Gunadarma University",
+    period: "Graduated",
+  },
+  {
+    category: "Informal",
+    title: "Fullstack Development Bootcamp",
+    institution: "Dicoding Academy",
+    period: "2023",
+  },
+  {
+    category: "Informal",
+    title: "UI/UX Course",
+    institution: "Binar Academy",
+    period: "2024",
+  },
+  {
+    category: "Informal",
+    title: "Mobile App Course",
+    institution: "Progate",
+    period: "2024",
   },
 ];
 
@@ -236,6 +270,7 @@ export default function Page() {
   const aboutPanelRef = useRef<HTMLDivElement | null>(null);
   const aboutSectionRef = useRef<HTMLElement | null>(null);
   const stackPanelRef = useRef<HTMLDivElement | null>(null);
+  const educationPanelRef = useRef<HTMLDivElement | null>(null);
   const experiencePanelRef = useRef<HTMLDivElement | null>(null);
   const projectPanelRef = useRef<HTMLDivElement | null>(null);
   const projectVisualCardRef = useRef<HTMLElement | null>(null);
@@ -300,6 +335,7 @@ export default function Page() {
     const parallaxEls = [
       aboutPanelRef.current,
       stackPanelRef.current,
+      educationPanelRef.current,
       experiencePanelRef.current,
       projectPanelRef.current,
       contactPanelRef.current,
@@ -505,6 +541,100 @@ export default function Page() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* section education */}
+      <section className="relative z-20 w-screen px-5 py-10 lg:p-10">
+        <div
+          ref={educationPanelRef}
+          className="parallax-panel reveal-on-scroll w-full max-w-7xl mx-auto rounded-3xl border border-white/20 bg-white/5 p-6 lg:p-10 backdrop-blur-md"
+          data-reveal
+          style={getRevealStyle(0)}
+        >
+          <div className="w-full flex flex-col gap-6 lg:gap-8">
+            <div
+              className="reveal-on-scroll w-full lg:w-1/3 flex items-center gap-4"
+              data-reveal
+              style={getRevealStyle(120)}
+            >
+              <div className="flex-1 h-1 bg-orange-500"></div>
+              <h2 className={sectionHeadingClass}>EDUCATION</h2>
+            </div>
+
+            <div className="flex flex-col gap-4 lg:gap-5">
+              {(["Formal", "Informal"] as const).map(
+                (category, categoryIndex) => {
+                  const categoryItems = educations.filter(
+                    (item) => item.category === category,
+                  );
+                  const isFormal = category === "Formal";
+                  const CategoryIcon = isFormal ? FiBookOpen : FiLayers;
+
+                  return (
+                    <article
+                      key={category}
+                      className={`education-panel reveal-on-scroll rounded-2xl border border-white/20 bg-black/45 p-5 lg:p-6 relative overflow-hidden ${
+                        isFormal
+                          ? "education-panel-formal"
+                          : "education-panel-informal"
+                      }`}
+                      data-reveal
+                      style={
+                        {
+                          "--reveal-delay": `${220 + categoryIndex * 90}ms`,
+                        } as React.CSSProperties
+                      }
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <p className="education-kicker text-orange-300 text-xs tracking-[0.18em] uppercase">
+                            {category}
+                          </p>
+                          <h3 className="mt-2 text-xl lg:text-2xl text-white/95 leading-tight">
+                            {isFormal ? "Academic Path" : "Bootcamps & Courses"}
+                          </h3>
+                        </div>
+                        <div className="education-icon-wrap h-10 w-10 lg:h-11 lg:w-11 shrink-0 rounded-lg border border-white/20 bg-white/5 flex items-center justify-center">
+                          <CategoryIcon
+                            className="text-lg lg:text-xl text-orange-300"
+                            aria-hidden="true"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="education-timeline mt-5 pl-5 flex flex-col gap-3">
+                        {categoryItems.map((item, itemIndex) => (
+                          <article
+                            key={`${item.title}-${item.institution}-${itemIndex}`}
+                            className="education-item relative rounded-xl border border-white/15 bg-white/3 px-4 py-3"
+                          >
+                            <span
+                              className="education-dot"
+                              aria-hidden="true"
+                            ></span>
+                            <div className="flex items-start justify-between gap-4">
+                              <div>
+                                <p className="text-white text-base lg:text-lg font-semibold leading-snug">
+                                  {item.title}
+                                </p>
+                                <p className="text-white/70 text-sm lg:text-base mt-1">
+                                  {item.institution}
+                                </p>
+                              </div>
+                              <span className="education-year whitespace-nowrap rounded-full border border-orange-300/35 bg-orange-300/10 px-3 py-1 text-xs lg:text-sm text-orange-200">
+                                {item.period}
+                              </span>
+                            </div>
+                          </article>
+                        ))}
+                      </div>
+                    </article>
+                  );
+                },
+              )}
             </div>
           </div>
         </div>
