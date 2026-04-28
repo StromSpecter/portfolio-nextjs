@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio Website
+
+Personal portfolio website built with Next.js App Router, TypeScript, Tailwind CSS v4, and custom motion-heavy UI styling.
+
+## Overview
+
+This project is a one-page portfolio experience with structured sections:
+
+- Hero
+- About
+- Tech Stack
+- Education
+- Experience
+- Portfolio Project Showcase
+- Contact Form
+
+The visual style uses a dark base, orange accents, glassmorphism cards, reveal-on-scroll animations, and subtle parallax.
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript 5
+- Tailwind CSS 4
+- React Icons
+
+## Project Structure
+
+```text
+.
+├── app/
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── assets/
+│       ├── images/
+│       └── svgs/
+├── components/
+│   ├── base/
+│   └── ui/
+├── public/
+├── AGENTS.md
+├── CLAUDE.md
+└── README.md
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+
+- npm 10+ (or package manager lain yang kompatibel)
+
+### Installation
+
+```bash
+npm install
+```
+
+### Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev`: run local development server
+- `npm run build`: create production build
+- `npm run start`: run production server
+- `npm run lint`: run ESLint
 
-## Learn More
+## Main Editing Points
 
-To learn more about Next.js, take a look at the following resources:
+- Content and section layout: `app/page.tsx`
+- Global styles, animation, visual effects: `app/globals.css`
+- Route-level setup and metadata: `app/layout.tsx`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Design and Motion Notes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Reuse existing classes and motion patterns before adding new ones.
+- Keep animation accessible with `prefers-reduced-motion` fallback.
+- Preserve responsive behavior for mobile and desktop.
 
-## Deploy on Vercel
+## AI Collaboration Files
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `AGENTS.md`: always-on instruction set for coding agents in this repository.
+- `CLAUDE.md`: reusable prompt context and templates for task-based requests.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+You can deploy on any platform that supports Next.js Node runtime, including Vercel.
+
+Recommended production flow:
+
+1. `npm run lint`
+2. `npm run build`
+3. `npm run start` (for smoke test)
+
+## Notes
+
+This repository includes custom agent instructions. If an AI agent is used for coding, ensure it respects both `AGENTS.md` and `CLAUDE.md` to keep implementation consistent.
