@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Righteous } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import rLogo from "./assets/svgs/R_Logo.svg";
 import "./globals.css";
 
@@ -69,6 +71,8 @@ export default function RootLayout({
     >
       <body suppressHydrationWarning className="min-h-full flex flex-col">
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
